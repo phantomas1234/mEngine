@@ -9,3 +9,9 @@ The following changes and additions have been made to the original code:
 * The new Matlab type [mwSize](http://www.mathworks.com/help/techdoc/apiref/mwsize.html) has been introduced (necessary for 64 bit compatibility)
 * The external variable Eng is now provided in Eng.h and Eng.c (following this [procedure](http://stackoverflow.com/questions/875655/linking-extern-variables-in-c))
 
+Installation:
+
+* mkdir build
+* cmake ..
+* make
+* make install
