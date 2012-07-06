@@ -24,5 +24,14 @@ list (APPEND _Targets mEngineLowLevel)
 # fix MathLink shared library references under Mac OS X
 Mathematica_ABSOLUTIZE_LIBRARY_DEPENDENCIES(mEngineLowLevel)
 
+
+file (COPY "${CMAKE_CURRENT_SOURCE_DIR}/mEngine.exe" "${CMAKE_CURRENT_SOURCE_DIR}/mEngine.m" "${CMAKE_CURRENT_SOURCE_DIR}/mEngine.nb" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}" FILE_PERMISSIONS USE_SOURCE_PERMISSIONS)
+
+
+file (COPY "${CMAKE_CURRENT_SOURCE_DIR}/mEngine.m" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
+file (COPY "${CMAKE_CURRENT_SOURCE_DIR}/mEngine.nb" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
+
 target_link_libraries(mEngineLowLevel mx eng)
+
 install (TARGETS mEngineLowLevel DESTINATION "${Mathematica_USERBASE_DIR}/Applications/")
+install (FILES mEngine.exe mEngine.m DESTINATION "${Mathematica_USERBASE_DIR}/Applications/" PERMISSIONS OWNER_EXECUTE OWNER_READ OWNER_WRITE)

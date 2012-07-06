@@ -91,12 +91,13 @@ Cell[TextData[{
 Cell["This loads the package.", "MathCaption",
  CellTags->{"S5.2.1", "1.3"}],
 
-Cell["\<\
-SetDirectory[NotebookDirectory[]];
-<<mEngine`\
-\>", "Input",
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], "\n", 
+ RowBox[{"<<", "mEngine`"}]}], "Input",
  CellTags->"S5.2.1",
- CellLabel->"In[1]:="],
+ CellLabel->"In[13]:="],
 
 Cell[TextData[{
  "Assign your data to a ",
@@ -120,7 +121,7 @@ Cell[BoxData[
        SqrtBox["3"]}
      }], ")"}]}], ";"}]], "Input",
  CellTags->"S5.2.1",
- CellLabel->"In[3]:="],
+ CellLabel->"In[15]:="],
 
 Cell["\<\
 This will put the variable x to the MATLAB workspace. Remember to enclose \
@@ -133,7 +134,7 @@ Cell[CellGroupData[{
 
 Cell["mPut[\"x\"]", "Input",
  CellTags->"S5.2.1",
- CellLabel->"In[4]:="],
+ CellLabel->"In[16]:="],
 
 Cell[BoxData[
  RowBox[{
@@ -141,11 +142,11 @@ Cell[BoxData[
    RowBox[{"eng", "::", "stMLB"}], "MessageName"], 
   RowBox[{":", " "}], "\<\"Starting MATLAB...\"\>"}]], "Message", "MSG",
  CellTags->"S5.2.1",
- CellLabel->"During evaluation of In[4]:="],
+ CellLabel->"During evaluation of In[16]:="],
 
 Cell[BoxData["\<\"x\"\>"], "Output",
  CellTags->"S5.2.1",
- CellLabel->"Out[4]="]
+ CellLabel->"Out[16]="]
 }, Open  ]],
 
 Cell["\<\
@@ -157,11 +158,11 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"mCmd", "[", "\"\<x\>\"", "]"}]], "Input",
- CellLabel->"In[5]:="],
+ CellLabel->"In[17]:="],
 
 Cell[BoxData["\<\">> \\nx =\\n\\n    2.0000   -5.0000   -6.0000\\n    2.2361  \
  12.0000    7.0000\\n   -9.0000         0    1.7321\\n\\n\"\>"], "Output",
- CellLabel->"Out[5]="]
+ CellLabel->"Out[17]="]
 }, Open  ]],
 
 Cell["\<\
@@ -174,7 +175,7 @@ Cell[CellGroupData[{
 
 Cell["mCmd[\"help inv\"]", "Input",
  CellTags->"S5.2.1",
- CellLabel->"In[6]:="],
+ CellLabel->"In[18]:="],
 
 Cell[BoxData["\<\">>  INV    Matrix inverse.\\n    INV(X) is the inverse of \
 the square matrix X.\\n    A warning message is printed if X is badly scaled \
@@ -183,7 +184,7 @@ LSQNONNEG, LSCOV.\\n\\n    Overloaded methods:\\n       gf/inv\\n       \
 codistributed/inv\\n       idmodel/inv\\n       InputOutputModel/inv\\n\\n    \
 Reference page in Help browser\\n       doc inv\\n\\n\"\>"], "Output",
  CellTags->"S5.2.1",
- CellLabel->"Out[6]="]
+ CellLabel->"Out[18]="]
 }, Open  ]],
 
 Cell["\<\
@@ -196,11 +197,11 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"mCmd", "[", "\"\<y=inv(x)\>\"", "]"}]], "Input",
- CellLabel->"In[7]:="],
+ CellLabel->"In[19]:="],
 
 Cell[BoxData["\<\">> \\ny =\\n\\n   -0.0764   -0.0318   -0.1360\\n    0.2458  \
   0.1857    0.1008\\n   -0.3970   -0.1654   -0.1293\\n\\n\"\>"], "Output",
- CellLabel->"Out[7]="]
+ CellLabel->"Out[19]="]
 }, Open  ]],
 
 Cell["Now Get y", "MathCaption",
@@ -213,7 +214,7 @@ y=mGet[\"y\"];
 MatrixForm[y]\
 \>", "Input",
  CellTags->"S5.2.1",
- CellLabel->"In[8]:="],
+ CellLabel->"In[20]:="],
 
 Cell[BoxData[
  TagBox[
@@ -241,7 +242,7 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellTags->"S5.2.1",
- CellLabel->"Out[9]//MatrixForm="]
+ CellLabel->"Out[21]//MatrixForm="]
 }, Open  ]],
 
 Cell["\<\
@@ -256,12 +257,12 @@ Cell[BoxData[
  RowBox[{"mPut", "[", 
   RowBox[{"{", 
    RowBox[{"\"\<x\>\"", ",", "\"\<y\>\""}], "}"}], "]"}]], "Input",
- CellLabel->"In[10]:="],
+ CellLabel->"In[22]:="],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{"\<\"x\"\>", ",", "\<\"y\"\>"}], "}"}]], "Output",
- CellLabel->"Out[10]="]
+ CellLabel->"Out[22]="]
 }, Open  ]],
 
 Cell["This will compute the eigenvectors and eigenvalues of y+i*x.", \
@@ -272,7 +273,7 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"mCmd", "[", "\"\<[v,d]=eig(y+i*x)\>\"", "]"}]], "Input",
- CellLabel->"In[11]:="],
+ CellLabel->"In[23]:="],
 
 Cell[BoxData["\<\">> \\nv =\\n\\n   0.4641 - 0.0000i  -0.2870 - 0.0000i  \
 -0.5126 - 0.0000i\\n  -0.4169 + 0.0000i  -0.6496 - 0.0000i   0.7711          \
@@ -280,7 +281,7 @@ Cell[BoxData["\<\">> \\nv =\\n\\n   0.4641 - 0.0000i  -0.2870 - 0.0000i  \
 =\\n\\n  -0.2768 - 3.6125i        0                  0          \\n        0  \
            0.1851 + 5.4013i        0          \\n        0                  0 \
             0.0717 +13.9433i\\n\\n\"\>"], "Output",
- CellLabel->"Out[11]="]
+ CellLabel->"Out[23]="]
 }, Open  ]],
 
 Cell["And get them back.", "MathCaption",
@@ -300,7 +301,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{"MatrixForm", "[", "eigvect", "]"}], "\[IndentingNewLine]", 
  RowBox[{"MatrixForm", "[", "eigval", "]"}]}], "Input",
- CellLabel->"In[12]:="],
+ CellLabel->"In[24]:="],
 
 Cell[BoxData[
  TagBox[
@@ -325,7 +326,7 @@ Cell[BoxData[
         Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
- CellLabel->"Out[13]//MatrixForm="],
+ CellLabel->"Out[25]//MatrixForm="],
 
 Cell[BoxData[
  TagBox[
@@ -353,7 +354,7 @@ Cell[BoxData[
         Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
- CellLabel->"Out[14]//MatrixForm="]
+ CellLabel->"Out[26]//MatrixForm="]
 }, Open  ]],
 
 Cell["\<\
@@ -375,14 +376,14 @@ be tedious.\
 
 Cell["mShow[]", "Input",
  CellTags->"S5.2.1",
- CellLabel->"In[15]:="],
+ CellLabel->"In[27]:="],
 
 Cell["Use mHide[] to hide it.", "MathCaption",
  CellTags->{"S5.2.1", "1.12"}],
 
 Cell[BoxData[
  RowBox[{"mHide", "[", "]"}]], "Input",
- CellLabel->"In[16]:="]
+ CellLabel->"In[28]:="]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -395,7 +396,7 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"?", "mEngine`*"}]], "Input",
- CellLabel->"In[17]:="],
+ CellLabel->"In[29]:="],
 
 Cell[BoxData[
  DynamicModuleBox[{Typeset`open$$ = True}, 
@@ -413,55 +414,55 @@ Cell[BoxData[
         {
          ButtonBox["eng",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"eng", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"eng", "mEngine`"}},
           ButtonNote->"mEngine`"], 
          ButtonBox["engClose",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"engClose", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"engClose", "mEngine`"}},
           ButtonNote->"mEngine`"], 
          ButtonBox["engCmd",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"engCmd", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"engCmd", "mEngine`"}},
           ButtonNote->"mEngine`"], 
          ButtonBox["engGet",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"engGet", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"engGet", "mEngine`"}},
           ButtonNote->"mEngine`"], 
          ButtonBox["engIsOpen",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"engIsOpen", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"engIsOpen", "mEngine`"}},
           ButtonNote->"mEngine`"], 
          ButtonBox["engOpen",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"engOpen", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"engOpen", "mEngine`"}},
           ButtonNote->"mEngine`"], 
          ButtonBox["engPut",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"engPut", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"engPut", "mEngine`"}},
           ButtonNote->"mEngine`"], 
          ButtonBox["engVis",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"engVis", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"engVis", "mEngine`"}},
           ButtonNote->"mEngine`"], 
          ButtonBox["mCmd",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"mCmd", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"mCmd", "mEngine`"}},
           ButtonNote->"mEngine`"], 
          ButtonBox["mGet",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"mGet", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"mGet", "mEngine`"}},
           ButtonNote->"mEngine`"], 
          ButtonBox["mHide",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"mHide", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"mHide", "mEngine`"}},
           ButtonNote->"mEngine`"], 
          ButtonBox["mPut",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"mPut", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"mPut", "mEngine`"}},
           ButtonNote->"mEngine`"], 
          ButtonBox["mShow",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3550574475-6776157", {"mShow", "mEngine`"}},
+          ButtonData:>{"Info3550579476-5842136", {"mShow", "mEngine`"}},
           ButtonNote->"mEngine`"]}
        },
        DefaultBaseStyle->"InfoGrid",
@@ -507,14 +508,14 @@ Cell[BoxData[
        RowBox[{"mGet", "[", "\"\<meig\>\"", "]"}]}], ")"}], ",", 
      "\"\<MATLAB not opened.\>\""}], "]"}]}], 
   "\[IndentingNewLine]"}]], "Input",
- CellLabel->"In[18]:="],
+ CellLabel->"In[30]:="],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
   RowBox[{"MagicEigenValues", "[", "15", "]"}], "//", "MatrixForm"}]], "Input",
- CellLabel->"In[19]:="],
+ CellLabel->"In[31]:="],
 
 Cell[BoxData[
  TagBox[
@@ -554,7 +555,7 @@ Cell[BoxData[
         Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
- CellLabel->"Out[19]//MatrixForm="]
+ CellLabel->"Out[31]//MatrixForm="]
 }, Open  ]],
 
 Cell["\<\
@@ -567,11 +568,11 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Uninstall", "[", "eng", "]"}]], "Input",
- CellLabel->"In[20]:="],
+ CellLabel->"In[32]:="],
 
-Cell[BoxData["\<\"/Users/niko/work/Code/MathematicaRepo/mEngine/mEngine\"\>"],\
- "Output",
- CellLabel->"Out[20]="]
+Cell[BoxData["\<\"/Users/niko/work/Code/MathematicaRepo/mEngine/mEngine.exe\"\
+\>"], "Output",
+ CellLabel->"Out[32]="]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]

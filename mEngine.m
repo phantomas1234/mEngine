@@ -43,7 +43,7 @@ mGet::arg=
 	or a list of such strings."
 
 (* This imports all the eng functions *)
-eng = Install["mEngine"] 
+eng = Install["mEngine.exe"] 
 
 Begin["`Private`"]
 
