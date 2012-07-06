@@ -1,6 +1,6 @@
-This is a an updated version of [mEngine](http://library.wolfram.com/infocenter/Demos/4821/ mEngine) developed by Robert Zhang, making it compatible with Mathematica 8 and Matlab R2011b.
+This is a an updated version of [mEngine](http://library.wolfram.com/infocenter/Demos/4821/ mEngine) developed by Robert Zhang, making it compatible with Mathematica 8 and Matlab R2011b. So far, it has been built and tested only under OS X 10.7
 
-The following changes and additions have been made:
+The following changes and additions have been made to the original code:
 
 * It is now possible to build mEngine with CMake
     - A low level MathLink (mEngineLowLevel) is build and wrapped in a shell script (mEngine) that can be adjusted to take for providing paths to Matlab libraries etc. (following this [procedure](http://stackoverflow.com/questions/8326258/install-mathlink-program-with-arbitrary-path-environment stackoverflow))
