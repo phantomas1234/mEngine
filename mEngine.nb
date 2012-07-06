@@ -1,0 +1,588 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["mEngine: make MATLAB a numerical engine for Mathematica", "Title",
+ FontSize->18],
+
+Cell["\<\
+Version 0.61
+Robert
+E-mail: zhangchenhui99@mails.tsinghua.edu.cn
+Documentation last revised: 2003.3.23\
+\>", "Subtitle",
+ FontSize->14],
+
+Cell[CellGroupData[{
+
+Cell["Introduction", "Subsection",
+ CellTags->{"S5.2.1", "1.1"}],
+
+Cell[TextData[{
+ "mEngine is a facility for sharing data between ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " and MATLAB via ",
+ StyleBox["MathLink",
+  FontSlant->"Italic"],
+ ". It's in fact a collection of wrapper functions to the MATLAB Engine \
+Library for call from ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ". You can put your variables from ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to the MATLAB workspace, do some calculations, and get them back, thus \
+making MATLAB a numerical engine for ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "."
+}], "Text",
+ CellTags->{"S5.2.1", "1.2"}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Installation", "Subsection"],
+
+Cell[TextData[{
+ "Copy mEngine.m and mEngine.exe to under <",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ">\\AddOns\\Applications, or anywhere on your $Path, and it's done."
+}], "Text"],
+
+Cell[TextData[{
+ "mEngine is implemented as a package that internally installs mEngine.exe. \
+Unlike notebooks and m-files that are platform-independent, mEngine.exe only \
+runs under the Windows OS. It requires that both ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " and MATLAB be installed."
+}], "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Using mEngine", "Subsection"],
+
+Cell[TextData[{
+ "The primal need for mEngine is to exchange n-dimensional arrays between ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " and MATLAB sessons. The arrays can be real or complex."
+}], "Text"],
+
+Cell["\<\
+mPut[\"x\"]\t\tput variable x to the MATLAB workspace
+mGet[\"x\"]\t\tget variable x from the MATLAB workspace
+mCmd[\"command\"]\texecute command in the MATLAB workspace\
+\>", "Text",
+ CellFrame->True,
+ Background->GrayLevel[0.833326]],
+
+Cell[TextData[{
+ "Comunication between ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " and MATLAB sessions"
+}], "Caption",
+ CellTags->"S5.2.1"],
+
+Cell["This loads the package.", "MathCaption",
+ CellTags->{"S5.2.1", "1.3"}],
+
+Cell["\<\
+SetDirectory[NotebookDirectory[]];
+<<mEngine`\
+\>", "Input",
+ CellTags->"S5.2.1",
+ CellLabel->"In[1]:="],
+
+Cell[TextData[{
+ "Assign your data to a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " variable before you put it into MATLAB. Here we name it x"
+}], "MathCaption",
+ CellTags->{"S5.2.1", "1.3"}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"x", "=", 
+   RowBox[{"(", GridBox[{
+      {"2", 
+       RowBox[{"-", "5"}], 
+       RowBox[{"-", "6"}]},
+      {
+       SqrtBox["5"], "12", "7"},
+      {
+       RowBox[{"-", "9"}], "0", 
+       SqrtBox["3"]}
+     }], ")"}]}], ";"}]], "Input",
+ CellTags->"S5.2.1",
+ CellLabel->"In[3]:="],
+
+Cell["\<\
+This will put the variable x to the MATLAB workspace. Remember to enclose \
+your varialbe within double quotes, so that the name is a string. If it is \
+the first time, a message will tell you that MATLAB is starting.\
+\>", "MathCaption",
+ CellTags->{"S5.2.1", "1.5"}],
+
+Cell[CellGroupData[{
+
+Cell["mPut[\"x\"]", "Input",
+ CellTags->"S5.2.1",
+ CellLabel->"In[4]:="],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"eng", "::", "stMLB"}], "MessageName"], 
+  RowBox[{":", " "}], "\<\"Starting MATLAB...\"\>"}]], "Message", "MSG",
+ CellTags->"S5.2.1",
+ CellLabel->"During evaluation of In[4]:="],
+
+Cell[BoxData["\<\"x\"\>"], "Output",
+ CellTags->"S5.2.1",
+ CellLabel->"Out[4]="]
+}, Open  ]],
+
+Cell["\<\
+Now you can use mCmd to enquire x. Any valid MATLAB command can be the \
+argument to mCmd.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"mCmd", "[", "\"\<x\>\"", "]"}]], "Input",
+ CellLabel->"In[5]:="],
+
+Cell[BoxData["\<\">> \\nx =\\n\\n    2.0000   -5.0000   -6.0000\\n    2.2361  \
+ 12.0000    7.0000\\n   -9.0000         0    1.7321\\n\\n\"\>"], "Output",
+ CellLabel->"Out[5]="]
+}, Open  ]],
+
+Cell["\<\
+We'll use MATLAB to find the inverse of x. First, let's look up the syntax of \
+the inverse function in MATLAB.\
+\>", "MathCaption",
+ CellTags->{"S5.2.1", "1.6"}],
+
+Cell[CellGroupData[{
+
+Cell["mCmd[\"help inv\"]", "Input",
+ CellTags->"S5.2.1",
+ CellLabel->"In[6]:="],
+
+Cell[BoxData["\<\">>  INV    Matrix inverse.\\n    INV(X) is the inverse of \
+the square matrix X.\\n    A warning message is printed if X is badly scaled \
+or\\n    nearly singular.\\n \\n    See also SLASH, PINV, COND, CONDEST, \
+LSQNONNEG, LSCOV.\\n\\n    Overloaded methods:\\n       gf/inv\\n       \
+codistributed/inv\\n       idmodel/inv\\n       InputOutputModel/inv\\n\\n    \
+Reference page in Help browser\\n       doc inv\\n\\n\"\>"], "Output",
+ CellTags->"S5.2.1",
+ CellLabel->"Out[6]="]
+}, Open  ]],
+
+Cell["\<\
+If you intend to get any data back from MATLAB, name it. In this case, we \
+name it y.\
+\>", "MathCaption",
+ CellTags->{"S5.2.1", "1.6"}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"mCmd", "[", "\"\<y=inv(x)\>\"", "]"}]], "Input",
+ CellLabel->"In[7]:="],
+
+Cell[BoxData["\<\">> \\ny =\\n\\n   -0.0764   -0.0318   -0.1360\\n    0.2458  \
+  0.1857    0.1008\\n   -0.3970   -0.1654   -0.1293\\n\\n\"\>"], "Output",
+ CellLabel->"Out[7]="]
+}, Open  ]],
+
+Cell["Now Get y", "MathCaption",
+ CellTags->{"S5.2.1", "1.7"}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+y=mGet[\"y\"];
+MatrixForm[y]\
+\>", "Input",
+ CellTags->"S5.2.1",
+ CellLabel->"In[8]:="],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{"-", "0.07639550730052462`"}], 
+      RowBox[{"-", "0.03183146137521859`"}], 
+      RowBox[{"-", "0.1359964806732441`"}]},
+     {"0.24579703749201812`", "0.1857487656216742`", "0.10077121573897507`"},
+     {
+      RowBox[{"-", "0.39696270034352327`"}], 
+      RowBox[{"-", "0.16540112514313468`"}], 
+      RowBox[{"-", "0.12930817334022726`"}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellTags->"S5.2.1",
+ CellLabel->"Out[9]//MatrixForm="]
+}, Open  ]],
+
+Cell["\<\
+You can put and get multiple variables at one time, just place them in curly \
+brackets.\
+\>", "MathCaption",
+ CellTags->{"S5.2.1", "1.7"}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"mPut", "[", 
+  RowBox[{"{", 
+   RowBox[{"\"\<x\>\"", ",", "\"\<y\>\""}], "}"}], "]"}]], "Input",
+ CellLabel->"In[10]:="],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"x\"\>", ",", "\<\"y\"\>"}], "}"}]], "Output",
+ CellLabel->"Out[10]="]
+}, Open  ]],
+
+Cell["This will compute the eigenvectors and eigenvalues of y+i*x.", \
+"MathCaption",
+ CellTags->{"S5.2.1", "1.9"}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"mCmd", "[", "\"\<[v,d]=eig(y+i*x)\>\"", "]"}]], "Input",
+ CellLabel->"In[11]:="],
+
+Cell[BoxData["\<\">> \\nv =\\n\\n   0.4641 - 0.0000i  -0.2870 - 0.0000i  \
+-0.5126 - 0.0000i\\n  -0.4169 + 0.0000i  -0.6496 - 0.0000i   0.7711          \
+\\n   0.7815             0.7040             0.3778 + 0.0000i\\n\\n\\nd \
+=\\n\\n  -0.2768 - 3.6125i        0                  0          \\n        0  \
+           0.1851 + 5.4013i        0          \\n        0                  0 \
+            0.0717 +13.9433i\\n\\n\"\>"], "Output",
+ CellLabel->"Out[11]="]
+}, Open  ]],
+
+Cell["And get them back.", "MathCaption",
+ CellTags->{"S5.2.1", "1.9"}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"eigvect", ",", "eigval"}], "}"}], "=", 
+   RowBox[{"Chop", "[", 
+    RowBox[{"mGet", "[", 
+     RowBox[{"{", 
+      RowBox[{"\"\<v\>\"", ",", "\"\<d\>\""}], "}"}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"MatrixForm", "[", "eigvect", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"MatrixForm", "[", "eigval", "]"}]}], "Input",
+ CellLabel->"In[12]:="],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {"0.4641125979945015`", 
+      RowBox[{"-", "0.28702908081379275`"}], 
+      RowBox[{"-", "0.512591722483234`"}]},
+     {
+      RowBox[{"-", "0.4168822586435879`"}], 
+      RowBox[{"-", "0.6495815069519557`"}], "0.7710522289225937`"},
+     {"0.7815424996831679`", "0.7040299514887243`", "0.3777938410233432`"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellLabel->"Out[13]//MatrixForm="],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{
+       RowBox[{"-", "0.2768146692482816`"}], "-", 
+       RowBox[{"3.612525314195256`", " ", "\[ImaginaryI]"}]}], "0", "0"},
+     {"0", 
+      RowBox[{"0.18514059499819585`", "\[VeryThinSpace]", "+", 
+       RowBox[{"5.401300563011288`", " ", "\[ImaginaryI]"}]}], "0"},
+     {"0", "0", 
+      RowBox[{"0.07171915923100335`", "\[VeryThinSpace]", "+", 
+       RowBox[{"13.943275558752841`", " ", "\[ImaginaryI]"}]}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellLabel->"Out[14]//MatrixForm="]
+}, Open  ]],
+
+Cell["\<\
+mShow[]\tshow the MATLAB command window
+mHide[]\thide the MATLAB command window\
+\>", "Text",
+ CellFrame->True,
+ Background->GrayLevel[0.833326]],
+
+Cell["Set visibility of the MATLAB command window", "Caption",
+ CellTags->"S5.2.1"],
+
+Cell["\<\
+It's more convenient to type commands in a MATLAB command window. Use mShow \
+to bring it up. If you need to do a lot of interation with MATLAB, mCmd would \
+be tedious.\
+\>", "MathCaption",
+ CellTags->{"S5.2.1", "1.12"}],
+
+Cell["mShow[]", "Input",
+ CellTags->"S5.2.1",
+ CellLabel->"In[15]:="],
+
+Cell["Use mHide[] to hide it.", "MathCaption",
+ CellTags->{"S5.2.1", "1.12"}],
+
+Cell[BoxData[
+ RowBox[{"mHide", "[", "]"}]], "Input",
+ CellLabel->"In[16]:="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Understanding mEngine", "Subsection"],
+
+Cell["Here are all the functions in mEngine`.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "mEngine`*"}]], "Input",
+ CellLabel->"In[17]:="],
+
+Cell[BoxData[
+ DynamicModuleBox[{Typeset`open$$ = True}, 
+  PaneSelectorBox[{False->
+   RowBox[{
+    OpenerBox[Dynamic[Typeset`open$$],
+     ImageSize->Small], 
+    StyleBox["mEngine`", "InfoHeading"]}], True->GridBox[{
+     {
+      RowBox[{
+       OpenerBox[Dynamic[Typeset`open$$],
+        ImageSize->Small], 
+       StyleBox["mEngine`", "InfoHeading"]}]},
+     {GridBox[{
+        {
+         ButtonBox["eng",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"eng", "mEngine`"}},
+          ButtonNote->"mEngine`"], 
+         ButtonBox["engClose",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"engClose", "mEngine`"}},
+          ButtonNote->"mEngine`"], 
+         ButtonBox["engCmd",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"engCmd", "mEngine`"}},
+          ButtonNote->"mEngine`"], 
+         ButtonBox["engGet",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"engGet", "mEngine`"}},
+          ButtonNote->"mEngine`"], 
+         ButtonBox["engIsOpen",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"engIsOpen", "mEngine`"}},
+          ButtonNote->"mEngine`"], 
+         ButtonBox["engOpen",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"engOpen", "mEngine`"}},
+          ButtonNote->"mEngine`"], 
+         ButtonBox["engPut",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"engPut", "mEngine`"}},
+          ButtonNote->"mEngine`"], 
+         ButtonBox["engVis",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"engVis", "mEngine`"}},
+          ButtonNote->"mEngine`"], 
+         ButtonBox["mCmd",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"mCmd", "mEngine`"}},
+          ButtonNote->"mEngine`"], 
+         ButtonBox["mGet",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"mGet", "mEngine`"}},
+          ButtonNote->"mEngine`"], 
+         ButtonBox["mHide",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"mHide", "mEngine`"}},
+          ButtonNote->"mEngine`"], 
+         ButtonBox["mPut",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"mPut", "mEngine`"}},
+          ButtonNote->"mEngine`"], 
+         ButtonBox["mShow",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3550574475-6776157", {"mShow", "mEngine`"}},
+          ButtonNote->"mEngine`"]}
+       },
+       DefaultBaseStyle->"InfoGrid",
+       GridBoxItemSize->{"Columns" -> {{
+            Scaled[0.07307692307692308]}}}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}]}, 
+   Dynamic[Typeset`open$$],
+   ImageSize->Automatic]]], "Print", "InfoCell"]
+}, Open  ]],
+
+Cell[TextData[{
+ "All eng functions are mapped in mEngine.exe, which then call the MATLAB \
+Engine Library functions. However, some of them are not easy to use, like \
+engPut. The m functions are just wrappers of the eng's. They provide for a \
+better interface. eng is the ",
+ StyleBox["MathLink",
+  FontSlant->"Italic"],
+ " connection to mEngine.exe. You can edit the mEngine.m file to better meet \
+your needs."
+}], "Text"],
+
+Cell["\<\
+You can write your own functions based on the eng's and m's. Suppose you need \
+a function that gives the eigenvalues of a magic matrix. A possible \
+implementation is:\
+\>", "MathCaption",
+ CellTags->{"S5.2.1", "1.12"}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MagicEigenValues", "[", "n_", "]"}], ":=", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"engIsOpen", "[", "]"}], ",", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"engCmd", "[", 
+        RowBox[{"\"\<m=magic(\>\"", "<>", 
+         RowBox[{"ToString", "[", "n", "]"}], "<>", "\"\<)\>\""}], "]"}], ";", 
+       RowBox[{"engCmd", "[", "\"\<meig=eig(m)\>\"", "]"}], ";", 
+       RowBox[{"mGet", "[", "\"\<meig\>\"", "]"}]}], ")"}], ",", 
+     "\"\<MATLAB not opened.\>\""}], "]"}]}], 
+  "\[IndentingNewLine]"}]], "Input",
+ CellLabel->"In[18]:="],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"MagicEigenValues", "[", "15", "]"}], "//", "MatrixForm"}]], "Input",
+ CellLabel->"In[19]:="],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {"1695.0000000000036`"},
+     {
+      RowBox[{"-", "541.0949771205658`"}]},
+     {"541.094977120566`"},
+     {
+      RowBox[{"-", "276.58872527370625`"}]},
+     {"276.58872527370687`"},
+     {
+      RowBox[{"-", "191.39760014392758`"}]},
+     {
+      RowBox[{"-", "151.39893686634016`"}]},
+     {
+      RowBox[{"-", "129.61481396815725`"}]},
+     {
+      RowBox[{"-", "113.10731498051919`"}]},
+     {
+      RowBox[{"-", "118.28760991390988`"}]},
+     {"191.3976001439272`"},
+     {"151.39893686633997`"},
+     {"129.61481396815728`"},
+     {"113.1073149805193`"},
+     {"118.28760991390993`"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellLabel->"Out[19]//MatrixForm="]
+}, Open  ]],
+
+Cell["\<\
+You may want to uninstall mEngine.exe when you have finished with it. This \
+would also close the MATLAB Engine.\
+\>", "MathCaption",
+ CellTags->{"S5.2.1", "1.12"}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Uninstall", "[", "eng", "]"}]], "Input",
+ CellLabel->"In[20]:="],
+
+Cell[BoxData["\<\"/Users/niko/work/Code/MathematicaRepo/mEngine/mEngine\"\>"],\
+ "Output",
+ CellLabel->"Out[20]="]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1920, 1152},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+ShowSelection->True,
+CellLabelAutoDelete->False,
+Magnification->1,
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
+2010)",
+StyleDefinitions->"HelpBrowser.nb"
+]
+
