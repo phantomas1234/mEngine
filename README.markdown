@@ -15,3 +15,8 @@ Installation:
 * cmake ..
 * make
 * make install
+
+Todo:
+
+* Provide support for structs (should not be to difficult)
+* Make building platform independent
