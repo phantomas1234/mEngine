@@ -12,6 +12,7 @@ The following changes and additions have been made to the original code:
 Installation:
 
 * mkdir build
+* cd build
 * cmake ..
 * make
 * make install
